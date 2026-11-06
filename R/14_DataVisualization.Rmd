@@ -1,0 +1,34 @@
+---
+title: "14_DataVisualization"
+output:  pdf_document
+date: "2026-11-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("03_funct_PlottingDensity_Insolation.R")
+source("04_funct_PlottingSize_Insolation.R")
+source('07_funct_Size_Insolation_Comparisons.R')
+
+
+
+
+load("12_SavingData.RData")
+
+
+plot_size_energy(usablePlanets)
+
+
+
+plot_density_energy(usablePlanets)
+
+
+
+
+
+
+
+```

@@ -1,0 +1,48 @@
+---
+title: "FinalReport"
+author: "Joseph Biehn"
+date: "2026-11-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("000_requirements.R")
+
+usablepPlanets <- load_dataset()
+
+
+habitable_zone_dataset <- usablepPlanets[, c(
+    "pl_name",
+    "hostname",
+    "pl_insol",
+    "pl_rade"
+  )
+]
+write.csv(habitable_zone_dataset,"habitable_zone_clean.csv")
+
+
+
+
+usablepPlanets <- find_density(usablepPlanets)
+usablepPlanets <- find_gravity(usablepPlanets)
+
+density_dataset <- usablepPlanets[,c(
+  "pl_name",
+  "hostname",
+  "pl_insol",
+  "pl_bmasse",
+  "pl_rade",
+  "pl_density",
+  "pl_gravity")]
+
+write.csv(density_dataset,"density_clean.csv")
+
+
+save_Rdata()
+
+
+```

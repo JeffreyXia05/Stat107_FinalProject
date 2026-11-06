@@ -1,0 +1,11 @@
+---
+title: "FinalReport"
+author: "Joseph Biehn"
+date: "2026-11-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

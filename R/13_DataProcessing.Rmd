@@ -1,0 +1,21 @@
+---
+title: "DataProcessing"
+output:  pdf_document
+date: "2026-11-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("000_requirements.R")
+
+
+load("12_SavingData.RData")
+
+
+
+
+
+```

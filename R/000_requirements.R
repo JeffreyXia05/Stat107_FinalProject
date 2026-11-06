@@ -1,0 +1,8 @@
+source("00_funct_CheckHabitableZone.R")
+source("01_funct_FindDensity.R")
+source("02_funct_FindGravity.R")
+source("05_funct_CheckingSizeRelativeToEarth.R")
+source("06_funct_RemoveNARows.R")
+source("00_funct_CheckHabitableZone.R")
+source("09_funct_LoadDataSet.R")
+source("15_save_load_envi.R")
