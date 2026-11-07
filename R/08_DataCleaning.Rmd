@@ -12,10 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 source("000_requirements.R")
 
-usablepPlanets <- load_dataset()
+usablePlanets <- load_dataset()
 
 
-habitable_zone_dataset <- usablepPlanets[, c(
+habitable_zone_dataset <- usablePlanets[, c(
     "pl_name",
     "hostname",
     "pl_insol",
@@ -27,10 +27,10 @@ write.csv(habitable_zone_dataset,"habitable_zone_clean.csv")
 
 
 
-usablepPlanets <- find_density(usablepPlanets)
-usablepPlanets <- find_gravity(usablepPlanets)
+usablePlanets <- find_density(usablePlanets)
+usablePlanets <- find_gravity(usablePlanets)
 
-density_dataset <- usablepPlanets[,c(
+density_dataset <- usablePlanets[,c(
   "pl_name",
   "hostname",
   "pl_insol",

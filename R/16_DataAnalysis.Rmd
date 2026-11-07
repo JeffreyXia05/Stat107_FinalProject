@@ -1,0 +1,98 @@
+---
+title: "16_DataAnalysis: Exoplanets in the Habitable Zone"
+output: pdf_document
+date: "2026-11-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 4)
+```
+
+```{r load}
+source("000_requirements.R")
+load("12_SavingData.RData")
+source("07_funct_Size_Insolation_Comparisons.R")
+source("10_funct_HabitableZoneAnalysis.R")
+```
+
+## Table 1: How many exoplanets are in the habitable zone?
+
+```{r table1}
+hz_summary <- summarize_habitable_zone(usablePlanets)
+knitr::kable(hz_summary, caption = "Confirmed exoplanets by habitable-zone class")
+```
+
+```{r numbers, include=FALSE}
+n_total <- nrow(usablePlanets)
+n_hz    <- hz_summary$n[hz_summary$class == "Habitable zone"]
+pct_hz  <- hz_summary$pct_of_known[hz_summary$class == "Habitable zone"]
+pct_hot <- hz_summary$pct_of_known[hz_summary$class == "Too hot"]
+```
+
+```{r chart1}
+counts <- setNames(hz_summary$n, hz_summary$class)
+bp <- barplot(counts,
+              col  = c("steelblue", "forestgreen", "firebrick", "grey70"),
+              ylim = c(0, max(counts) * 1.15),
+              ylab = "Number of planets",
+              main = "Confirmed exoplanets by habitable-zone class")
+text(bp, counts, labels = counts, pos = 3)
+```
+
+Out of 6451 confirmed exoplanets, 290 are in the habitable zone. Which is 5.0% of the planets whose insolation is known. Most planets (87.9%) are too hot because they orbit too close to their star for them to be hospitable. 
+
+## Table 2: Which HZ planets are also Earth-sized?
+
+```{r table2}
+earth_like    <- size_energy_comparisons(usablePlanets)
+hz_candidates <- usablePlanets[earth_like,
+                               c("pl_name", "pl_insol", "pl_rade", "pl_eqt", "st_teff")]
+hz_candidates <- hz_candidates[order(abs(hz_candidates$pl_insol - 1)), ]
+rownames(hz_candidates) <- NULL
+knitr::kable(hz_candidates, digits = 2,
+             caption = "Earth-sized planets in the habitable zone")
+```
+
+Only 27 planets are both in the habitable zone and about the size of Earth. They are listed from most to least Earth-like insolation. All of them orbit stars cooler than the Sun (5772 K): the hottest host star in the table is 4925 K.
+
+### Numerical summary
+
+```{r num-summary}
+num_summary <- numeric_summary(usablePlanets,
+                               c("pl_insol", "pl_orbsmax", "pl_rade",
+                                 "pl_bmasse", "pl_eqt", "st_teff"))
+knitr::kable(num_summary, digits = 2,
+             caption = "Numerical summary of the main variables")
+```
+
+Insolation, orbital distance, radius and mass are strongly right-skewed, the mean is much larger than the median. For example, the median insolation is 66.7 times Earth’s, but the mean is 531.9 because of a few extremely hot planets. 
+
+### Histogram of insolation
+
+```{r hist}
+plot_insolation_histogram(usablePlanets)
+```
+
+Most planets receive 10 to 1000 times the energy Earth does, far off to the right of the habitable zone, shown by the green marker. Earth sits within the distribution.
+
+### Density plot of planet size
+
+```{r density}
+plot_radius_density(usablePlanets)
+```
+
+The dashed lines mark the Earth-size range (0.5 to 1.5 Earth radii). Planets that are too hot are mostly 1 to 4 Earth radii, while HZ and too-cold planets are more often giants of around 10 Earth radii.
+
+
+```{r save-figures}
+save_plot_png(plot_insolation_histogram,   usablePlanets, "hist_insolation.png")
+save_plot_png(plot_radius_density,         usablePlanets, "density_radius.png")
+```
+
+```{r save}
+write.csv(hz_summary,    "hz_summary.csv",    row.names = FALSE)
+write.csv(hz_candidates, "hz_candidates.csv", row.names = FALSE)
+write.csv(num_summary,   "numeric_summary.csv", row.names = FALSE)
+save(hz_summary, hz_candidates, solar, num_summary,
+     file = "17_AnalysisResults.RData")
+```
