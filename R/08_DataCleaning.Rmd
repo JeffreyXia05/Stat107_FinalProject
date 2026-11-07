@@ -22,7 +22,7 @@ habitable_zone_dataset <- usablePlanets[, c(
     "pl_rade"
   )
 ]
-write.csv(habitable_zone_dataset,"habitable_zone_clean.csv")
+write.csv(habitable_zone_dataset,"../Data/Cleaned/habitable_zone_clean.csv")
 
 
 
@@ -39,7 +39,7 @@ density_dataset <- usablePlanets[,c(
   "pl_density",
   "pl_gravity")]
 
-write.csv(density_dataset,"density_clean.csv")
+write.csv(density_dataset,"../Data/Cleaned/density_clean.csv")
 
 
 save_Rdata()

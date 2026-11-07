@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+source("000_requirements.R")
 source("03_funct_PlottingDensity_Insolation.R")
 source("04_funct_PlottingSize_Insolation.R")
 source('07_funct_Size_Insolation_Comparisons.R')

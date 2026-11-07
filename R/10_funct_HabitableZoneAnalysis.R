@@ -68,9 +68,24 @@ plot_radius_density <- function(df) {
   legend("topright", bty = "n", lwd = 2, col = colors, legend = classes)
 }
 
+plot_radius_boxplot <- function(df) {
+  cls  <- classify_habitable_zone(df$pl_insol)
+  keep <- cls != "Unknown" & !is.na(df$pl_rade)
+  boxplot(df$pl_rade[keep] ~ droplevels(cls[keep]), log = "y",
+          col = c("steelblue", "forestgreen", "firebrick"),
+          xlab = "Habitable-zone class", ylab = "Planet radius (Earth = 1, log scale)",
+          main = "Planet radius by habitable-zone class")
+  abline(h = 1, col = "blue", lty = 2, lwd = 2)
+  rect(0, 0.5, 4, 1.5, col = adjustcolor("grey50", 0.15), border = NA)
+  legend("topleft", bty = "n",
+         legend = c("Earth (radius = 1)", "Earth-size range (0.5 - 1.5)"),
+         lty = c(2, NA), lwd = c(2, NA), col = c("blue", NA),
+         fill = c(NA, adjustcolor("grey50", 0.15)), border = c(NA, "black"))
+}
+
 save_plot_png <- function(plot_fun, df, file_name) {
-  dir.create("figures", showWarnings = FALSE)
-  png(file.path("figures", file_name), width = 1400, height = 900, res = 150)
+  dir.create("../figures", showWarnings = FALSE)
+  png(file.path("../figures", file_name), width = 1400, height = 900, res = 150)
   plot_fun(df)
   dev.off()
 }

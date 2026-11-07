@@ -1,7 +1,7 @@
 ### loads full data set and takes the important columns from them
 load_dataset<- function()
 {
-exoplanets <- read.csv("PSCompPars_2026.11.03_10.19.30.csv", skip = 88) ### must skip 858 lines ti get to data
+exoplanets <- read.csv("../Data/Original/PSCompPars_2026.11.03_10.19.30.csv", skip = 88) ### must skip 88 lines to get to data
 
 
 ### Strip data leaving the Columns that will help with data. Compared to Earth, (etc, radii = 1.5 is Earth radius x 1.5)

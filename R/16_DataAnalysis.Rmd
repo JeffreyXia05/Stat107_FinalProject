@@ -87,12 +87,13 @@ The dashed lines mark the Earth-size range (0.5 to 1.5 Earth radii). Planets tha
 ```{r save-figures}
 save_plot_png(plot_insolation_histogram,   usablePlanets, "hist_insolation.png")
 save_plot_png(plot_radius_density,         usablePlanets, "density_radius.png")
+save_plot_png(plot_radius_boxplot,         usablePlanets, "boxplot_radius.png")
 ```
 
 ```{r save}
-write.csv(hz_summary,    "hz_summary.csv",    row.names = FALSE)
-write.csv(hz_candidates, "hz_candidates.csv", row.names = FALSE)
-write.csv(num_summary,   "numeric_summary.csv", row.names = FALSE)
-save(hz_summary, hz_candidates, solar, num_summary,
+write.csv(hz_summary, "../Data/Cleaned/hz_summary.csv",    row.names = FALSE)
+write.csv(hz_candidates, "../Data/Cleaned/hz_candidates.csv", row.names = FALSE)
+write.csv(num_summary, "../Data/Cleaned/numeric_summary.csv", row.names = FALSE)
+save(hz_summary, hz_candidates, num_summary,
      file = "17_AnalysisResults.RData")
 ```
